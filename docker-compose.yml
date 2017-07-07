@@ -1,0 +1,21 @@
+
+version: '2'
+services:
+  api:
+    container_name: adminlte-api
+    env_file: env/api.env
+    command: npm start
+    volumes:
+      - "./:/usr/src/app/"
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - "db:db"
+    depends_on:
+      - db
+    restart: always
+  db:
+    container_name: adminlte-db
+    image: postgres:9.5.6
+    env_file: env/db.env
